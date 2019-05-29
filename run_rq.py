@@ -1,8 +1,9 @@
 import argparse
 import sys
 import time
-from collections import deque
 import logging
+import multiprocessing
+from collections import deque
 
 from redis import Redis
 from rq import Queue
@@ -79,7 +80,7 @@ if __name__ == "__main__":
         '--chunk-size', type=int, default=1000,
         )
     parser.add_argument(
-        '--concurrency', type=int, default=1,
+        '--concurrency', type=int, default=multiprocessing.cpu_count(),
         )
     parser.add_argument(
         '--log-level', type=str, default='DEBUG',
